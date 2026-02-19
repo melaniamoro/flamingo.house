@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Усадьба в Губичах | Посуточно</title>
+    <!-- Шрифт и иконки (Font Awesome для соцсетей/телефона) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+
+        body {
+            background-color: #f2ede4;  /* светлый фон с бежевым оттенком */
+            color: #2c3e2f;
+            line-height: 1.5;
+        }
+
+        /* Коричнево-зеленая палитра */
+        :root {
+            --primary-dark: #3a5e3a;      /* глубокий зеленый */
+            --primary-light: #5f7e5a;      /* травяной */
+            --accent-brown: #8b6b4d;       /* кора дерева */
+            --accent-darkbrown: #5a3e2b;   /* темный шоколад */
+            --bg-light: #f8f3ec;            /* сливочный */
+            --card-bg: #ffffffd9;
+            --border-color: #cbb99d;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        .header {
+            background: linear-gradient(145deg, #1f3a1f 0%, #2d512d 100%);
+            color: #fef9e6;
+            padding: 24px 0 20px;
+            border-bottom: 6px solid #b48b5a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.6rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0 #2b4b2b;
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            color: #e2dcc7;
+        }
+
+        .subhead {
+            font-style: italic;
+            border-left: 4px solid #b48b5a;
+            padding-left: 16px;
+            margin: 12px 0 0;
+        }
+
+        /* Галерея (используем файлы) */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin: 40px 0 30px;
+        }
+
+        .gallery-item {
+            background: #cbb99d;
+            border-radius: 24px 8px 24px 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 18px -8px rgba(60, 40, 20, 0.4);
+            border: 2px solid var(--accent-brown);
+            aspect-ratio: 1 / 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #dac9b4;
+            transition: 0.2s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            border-color: var(--primary-dark);
+        }
+
+        /* Заглушки фото — имитируем содержимое файлов */
+        .photo-mock {
+            width: 100%;
+            height: 100%;
+            background: #a88f74;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff7e3;
+            font-weight: 600;
+            text-shadow: 2px 2px 0 #3d3d1f;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            background-image: repeating-linear-gradient(45deg, #7d9b6d40 0px, #7d9b6d40 12px, #b48b5a40 12px, #b48b5a40 24px);
+        }
+
+        .photo-mock i {
+            font-size: 2rem;
+            margin-bottom: 6px;
+            color: #f5e6d3;
+        }
+
+        /* Основная информация */
+        .info-panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(2px);
+            padding: 30px 30px 20px;
+            border-radius: 60px 20px 60px 20px;
+            box-shadow: 20px 20px 0 rgba(58, 94, 58, 0.2);
+            border: 2px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .price-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px 40px;
+            justify-content: space-between;
+            background: #e9dfd0;
+            padding: 24px 28px;
+            border-radius: 48px 16px 48px 16px;
+            border-left: 8px solid var(--accent-darkbrown);
+        }
+
+        .price-card {
+            flex: 1 1 200px;
+        }
+
+        .price-card h3 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .price-card .price-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-darkbrown);
+            line-height: 1.2;
+        }
+
+        .price-card small {
+            font-size: 1rem;
+            color: #5f4d3a;
+        }
+
+        .price-note {
+            background: #c7b7a2;
+            padding: 8px 20px;
+            border-radius: 40px;
+            color: #1d301d;
+            font-weight: 600;
+            margin: 16px 0 10px;
+            display: inline-block;
+        }
+
+        .option {
+            background: #f2e6d8;
+            border-radius: 20px;
+            padding: 18px 25px;
+            margin: 25px 0 10px;
+            border: 1px dashed #8b6b4d;
+            font-size: 1.2rem;
+        }
+
+        .option span {
+            background: var(--primary-dark);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 40px;
+            margin-left: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Контакт */
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: #2d4b2d;
+            color: #faf1dd;
+            padding: 18px 28px;
+            border-radius: 60px 12px 60px 12px;
+            margin: 30px 0;
+        }
+
+        .contact-phone {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .contact-phone i {
+            color: #e7cba5;
+            margin-right: 12px;
+        }
+
+        .contact-name {
+            font-size: 1.6rem;
+            background: #8b6b4d;
+            padding: 6px 22px;
+            border-radius: 36px;
+        }
+
+        /* Форма заявки */
+        .form-booking {
+            background: #ebe1d1;
+            padding: 32px 32px 38px;
+            border-radius: 30px 30px 80px 30px;
+            border: 4px solid #7f9a6b;
+            box-shadow: inset 0 0 0 2px #fcf9f2, 0 15px 20px -10px #3f553f;
+            margin: 40px 0;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            color: #1d3b1d;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .form-title i {
+            background: var(--accent-brown);
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+        }
+
+        .form-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
+        .input-group {
+            flex: 1 1 260px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #2d4b1e;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.2rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 16px 22px;
+            font-size: 1.1rem;
+            border: 3px solid #bcaa91;
+            border-radius: 60px;
+            background: #fffcf2;
+            transition: 0.15s;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #3a6b3a;
+            box-shadow: 0 0 0 4px #b1c9a1;
+        }
+
+        .btn-submit {
+            background: #426b42;
+            border: none;
+            color: white;
+            font-size: 1.7rem;
+            font-weight: 600;
+            padding: 16px 45px;
+            border-radius: 60px 16px 60px 16px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 10px 10px 0 #2b4020;
+            border: 2px solid #e5cfa8;
+            margin-top: 15px;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .btn-submit:hover {
+            background: #2f542f;
+            box-shadow: 4px 4px 0 #2b4020;
+            transform: translate(4px, 4px);
+        }
+
+        /* Ссылка на бронь (дополнительный вариант) */
+        .booking-link {
+            text-align: center;
+            margin: 30px 0 20px;
+        }
+
+        .booking-link a {
+            background: #6f8c6d;
+            padding: 18px 40px;
+            border-radius: 60px;
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            border: 3px solid #e3caad;
+            display: inline-block;
+            transition: 0.2s;
+        }
+
+        .booking-link a:hover {
+            background: #4f6e4a;
+            border-color: #a37e5a;
+        }
+
+        /* Футер */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #53412e;
+            border-top: 2px solid #bba88b;
+            margin-top: 40px;
+        }
+
+        /* Адаптация */
+        @media (max-width: 700px) {
+            .header h1 { font-size: 2rem; }
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+            .price-block { flex-direction: column; gap: 20px; }
+            .contact-phone { font-size: 1.6rem; }
+            .contact-name { font-size: 1.3rem; }
+        }
+        @media (max-width: 450px) {
+            .gallery { grid-template-columns: 1fr; }
+        }
+        /* Гео деталь */
+        .geo {
+            background: #d8cfbd;
+            padding: 12px 25px;
+            border-radius: 40px;
+            font-size: 1.3rem;
+            color: #1e3b1e;
+            display: inline-block;
+            margin: 10px 0 5px;
+        }
+        .geo i {
+            color: #5f3e26;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <h1> <span style="font-weight:100; color:#b48b5a;">|</span> Губичи</h1>
+        <p>Загородный дом в тишине леса</p>
+        <div class="subhead">д. Губичи, ул. Спортивная, 4</div>
+    </div>
+</header>
+
+<main class="container">
+    <!-- Галерея из предоставленных файлов (имитация фото) -->
+    <div class="gallery">
+    <div class="gallery-item"><img src="п.jpg" alt="Фото дома 1" style="width:100%; height:100%; object-fit: cover;"></div>
+    <div class="gallery-item"><img src="бассейн.jpg" alt="Фото дома 2" style="width:100%; height:100%; object-fit: cover;"></div>
+    <div class="gallery-item"><img src="IMG_5495.PNG" alt="Фото дома 3" style="width:100%; height:100%; object-fit: cover;"></div>
+    <div class="gallery-item"><img src="68dbabcd3f.jpg" alt="Фото дома 4" style="width:100%; height:100%; object-fit: cover;"></div>
+    <div class="gallery-item"><img src="5fc7ccfedc.jpg" alt="Фото дома 5" style="width:100%; height:100%; object-fit: cover;"></div>
+</div>
+
+    <!-- Адрес + детали -->
+    <div class="geo">
+        <i class="fas fa-map-pin"></i> Беларусь, деревня Губичи, улица Спортивная 4
+    </div>
+
+    <!-- Цены и основные условия -->
+    <div class="info-panel">
+        <div class="price-block">
+            <div class="price-card">
+                <h3>Выходные</h3>
+                <div class="price-value">1500 <small>бел.руб</small></div>
+                <p>пятница–воскресенье</p>
+            </div>
+            <div class="price-card">
+                <h3>Будние</h3>
+                <div class="price-value">1050 <small>бел.руб</small></div>
+                <p>понедельник–четверг</p>
+            </div>
+            <div class="price-card">
+                <h3>Баня / джакузи</h3>
+                <div class="price-value">300 <small>бел.руб</small></div>
+                <p>отдельная оплата</p>
+            </div>
+        </div>
+
+        <div class="option">
+            🔥 Баня и джакузи оплачиваются отдельно — <span>300 бел.руб</span>
+        </div>
+
+        <!-- Контактное лицо -->
+        <div class="contact-row">
+            <div class="contact-phone">
+                <i class="fas fa-phone-alt"></i> <a href="tel:+375291045636">+375 29 104-56-36</a>
+            </div>
+            <div class="contact-name">
+                <i class="fas fa-user"></i> Александр
+            </div>
+        </div>
+
+        <!-- Пояснение: бронь через заявку или прямой звонок -->
+        <p style="font-size:1.2rem; color:#3b4f2d; background: #d9cfba; padding: 8px; border-radius: 30px; text-align: center;">
+            <i class="fas fa-check-circle" style="color:#426b42;"></i> 
+            Забронируйте сейчас — заполните форму, и мы сразу свяжемся!
+        </p>
+    </div>
+
+    <!-- 🌟 ФОРМА ЗАЯВКИ (имя + телефон) -->
+    <div class="form-booking" id="booking">
+        <div class="form-title">
+            <i class="fas fa-pen"></i> 
+            <span>Оставить заявку на бронь</span>
+        </div>
+        <form action="#" method="post" onsubmit="event.preventDefault(); alert('Спасибо, ' + document.getElementById('name').value + '! Мы свяжемся с вами в ближайшее время. Александр перезвонит.');">
+            <div class="form-grid">
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> Ваше имя</label>
+                    <input type="text" id="name" name="name" placeholder="например, Иван" required>
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-mobile-alt"></i> Номер телефона</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+375 29 123-45-67" required>
+                </div>
+            </div>
+            <button type="submit" class="btn-submit"><i class="fas fa-calendar-check"></i> Забронировать</button>
+        </form>
+        <p style="margin-top: 20px; color: #3a503a; font-size: 1rem;">* Мы перезвоним для подтверждения и уточнения деталей</p>
+    </div>
+
+    <!-- Альтернативная ссылка на бронь (можно заменить на реальную ссылку) -->
+    <div class="booking-link">
+        <a href="#booking" style="text-decoration: none;"><i class="fas fa-external-link-alt"></i> Забронировать онлайн (быстрый переход к форме)</a>
+    </div>
+
+    <!-- Дополнительный блок с ценами и баней (повтор для важности) -->
+    <div style="background: #e4d7c4; border-radius: 30px; padding: 20px 30px; margin: 30px 0; display: flex; flex-wrap: wrap; gap: 30px; align-items: center; justify-content: space-around; border: 2px solid #ac8b64;">
+        <div><span style="font-weight: 700;">🏡 Выходные:</span> 1500 руб</div>
+        <div><span style="font-weight: 700;">📆 Будни:</span> 1050 руб</div>
+        <div><span style="font-weight: 700;">🧖‍♂️ Баня/джакузи:</span> 300 руб</div>
+        <div><i class="fas fa-phone"></i> <strong>+375 29 104-56-36</strong></div>
+    </div>
+
+карта 
+<!-- КАРТА С ГЕОЛОКАЦИЕЙ -->
+<div class="container" style="margin-top: 30px; margin-bottom: 30px;">
+    <div style="background: #e9dfd0; padding: 25px; border-radius: 60px 20px 60px 20px; border: 2px solid #8b6b4d;">
+        <h3 style="color: #3a5e3a; font-size: 1.8rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-map-marked-alt" style="color: #8b6b4d;"></i> Как нас найти
+        </h3>
+        <p style="font-size: 1.2rem; margin-bottom: 20px; background: #f2ede4; padding: 10px 20px; border-radius: 40px;">
+            <i class="fas fa-location-dot" style="color: #5a3e2b;"></i> 
+            <strong>Беларусь, деревня Губичи, улица Спортивная 4</strong>
+        </p>
+        
+        <!-- Здесь будет карта -->
+        <div style="border-radius: 40px; overflow: hidden; border: 4px solid #8b6b4d; box-shadow: 0 15px 25px -10px #3f553f;">
+            <!-- ЗАМЕНИТЕ ЭТОТ IFrame НА ВАШ КОД С ЯНДЕКС/GOOGLE КАРТЫ -->
+            <iframe 
+                src="https://yandex.by/maps/-/CPaZM04L" 
+                width="100%" 
+                height="400" 
+                frameborder="0"
+                style="display: block;"
+                allowfullscreen>
+            </iframe>
+            <!-- КОНЕЦ БЛОКА КАРТЫ -->
+        </div>
+        
+        <div style="display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap;">
+            <a href="https://yandex.by/maps/?text=Губичи%20Спортивная%204" target="_blank" style="background: #5f7e5a; color: white; padding: 12px 25px; border-radius: 40px; text-decoration: none;">
+                <i class="fas fa-route"></i> Построить маршрут
+            </a>
+            <a href="https://maps.app.goo.gl/?link=https://www.google.com/maps?q=Губичи+Спортивная+4" target="_blank" style="background: #8b6b4d; color: white; padding: 12px 25px; border-radius: 40px; text-decoration: none;">
+                <i class="fab fa-google"></i> Открыть в Google Maps
+            </a>
+        </div>
+    </div>
+</div>
+        
+        <div style="display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap;">
+            <a href="https://yandex.by/maps/?text=Губичи%20Спортивная%204" target="_blank" style="background: #5f7e5a; color: white; padding: 12px 25px; border-radius: 40px; text-decoration: none;">
+                <i class="fas fa-route"></i> Построить маршрут
+            </a>
+            <a href="https://maps.app.goo.gl/?link=https://www.google.com/maps?q=Губичи+Спортивная+4" target="_blank" style="background: #8b6b4d; color: white; padding: 12px 25px; border-radius: 40px; text-decoration: none;">
+                <i class="fab fa-google"></i> Открыть в Google Maps
+            </a>
+        </div>
+    </div>
+</div>
+
+    <!-- Ещё раз контакт с Александром и деревня -->
+    <div style="text-align: center; font-size: 1.4rem; background: #cbb295; border-radius: 80px 20px; padding: 15px; color: #1d2f1d;">
+        <i class="fas fa-star"></i> д. Губичи, Спортивная 4. Хозяин Александр <i class="fas fa-star"></i>
+    </div>
+
+</main>
+
+<footer class="footer container">
+    <p>© REALT BY · Посуточная аренда дома в Губичах · 2021 (фото из файлов: 9b330fd0fb, 31f19a7c3c, 32a07a6799, 59c7d939c8, 68dbabcd3f)</p>
+    <p style="font-size: 0.9rem; opacity: 0.7;">Баня и джакузи оплачиваются отдельно — 300 бел. руб. Звоните, бронируйте!</p>
+</footer>
+
+<!-- Небольшой скрипт для мягкого скролла к форме -->
+<script>
+    (function() {
+        const links = document.querySelectorAll('a[href="#booking"]');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    })();
+</script>
+
+</body>
+</html>
